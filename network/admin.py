@@ -4,9 +4,17 @@ from django.utils.translation import ngettext
 from network import models
 
 
-@admin.register(models.Vendor)
+@admin.register(models.Factory)
+class FactoryAdmin(admin.ModelAdmin):
+    list_display = ("title", "created", "product",)
+    list_display_links = ("title",)
+    search_fields = ("contact__city",)
+
+
+@admin.register(models.RetailsNet)
+@admin.register(models.IndiPred)
 class VendorAdmin(admin.ModelAdmin):
-    list_display = ("title", "indebtedness", "created")
+    list_display = ("title", "created", "product", "indebtedness")
     list_display_links = ("title",)
     search_fields = ("contact__city",)
     actions = ("debt_deletion",)
