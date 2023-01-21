@@ -1,0 +1,41 @@
+version: "3.9"
+
+services:
+  #  api:
+  #    build:
+  #      context: .
+  #    depends_on:
+  #      migration:
+  #        condition: service_completed_successfully
+  #      postgres:
+  #        condition: service_healthy
+  #    volumes:
+  #      - ./.docker_env:/app/.env
+
+  #  migration:
+  #    build:
+  #      context: .
+  #    depends_on:
+  #      postgres:
+  #        condition: service_healthy
+  #    command: python manage.py migrate
+  #    volumes:
+  #      - ./.docker_env:/app/.env
+
+  postgres:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: testbd
+      POSTGRES_PASSWORD: testbd
+      POSTGRES_DB: testbd
+#    healthcheck:
+#      test: [ "CMD-SHELL", "pg_isready -U todolist" ]
+#      interval: 5s
+#      timeout: 5s
+#      retries: 5
+#    volumes:
+#      - postgres_data:/var/lib/postgresql/data
+
+
