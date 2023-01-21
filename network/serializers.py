@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Vendor, Contact, Product
+from .models import Contact, Product, Factory, RetailsNet, IndiPred
 
 
 class ContactSerializer(serializers.ModelSerializer):
@@ -15,22 +15,22 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class VendorSerializer(serializers.ModelSerializer):
-    contact = ContactSerializer()
-    product = ProductSerializer()
+class FactorySerializer(serializers.ModelSerializer):
+    contact = ContactSerializer(read_only=True)
+    product = ProductSerializer(read_only=True)
 
     class Meta:
-        model = Vendor
+        model = Factory
         fields = "__all__"
 
 
-class VendorCreateSerializer(serializers.ModelSerializer):
+class RetailSerializer(FactorySerializer):
     class Meta:
-        model = Vendor
-        fields = ("title", "type", "vendor")
+        model = RetailsNet
+        fields = "__all__"
 
-    def save(self, **kwargs):
-        if self.validated_data["type"] != 0:
-            hierarchy = self.validated_data["vendor"].hierarchy + 1
-            kwargs["hierarchy"] = hierarchy
-        super().save(**kwargs)
+
+class IndividualSerializer(RetailSerializer):
+    class Meta:
+        model = IndiPred
+        fields = "__all__"
