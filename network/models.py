@@ -81,9 +81,9 @@ class Product(models.Model):
     model = models.CharField(max_length=100)
     created = models.DateTimeField(auto_now_add=True)
 
-    factory = models.OneToOneField("Factory", on_delete=models.CASCADE, null=True, blank=True)
-    retails = models.OneToOneField("RetailsNet", on_delete=models.CASCADE, null=True, blank=True)
-    indi = models.OneToOneField("IndiPred", on_delete=models.CASCADE, null=True, blank=True)
+    factory = models.ManyToManyField("Factory", blank=True, related_name="products")
+    retails = models.ManyToManyField("RetailsNet", blank=True, related_name="products")
+    indi = models.ManyToManyField("IndiPred", blank=True, related_name="products")
 
     class Meta:
         verbose_name = "Продукт"
