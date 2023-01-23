@@ -1,3 +1,4 @@
+from django.core.validators import MinValueValidator
 from django.db import models
 
 
@@ -6,7 +7,10 @@ class Vendor(models.Model):
         abstract = True
 
     title = models.CharField(max_length=50)
-    indebtedness = models.DecimalField(decimal_places=2, max_digits=25, default=0.00)
+    indebtedness = models.DecimalField(decimal_places=2,
+                                       max_digits=25,
+                                       default=0.00,
+                                       validators=([MinValueValidator(0)]))
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -62,7 +66,7 @@ class Contact(models.Model):
     country = models.CharField(max_length=50)
     city = models.CharField(max_length=50)
     street = models.CharField(max_length=50)
-    house_number = models.SmallIntegerField()
+    house_number = models.PositiveSmallIntegerField()
 
     factory = models.OneToOneField("Factory", on_delete=models.CASCADE, null=True, blank=True)
     retails = models.OneToOneField("RetailsNet", on_delete=models.CASCADE, null=True, blank=True)

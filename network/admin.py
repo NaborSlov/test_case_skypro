@@ -31,7 +31,7 @@ class VendorAdmin(admin.ModelAdmin):
             ct = obj.indi_pred
 
         url = reverse(f'admin:{ct._meta.app_label}_{ct._meta.model_name}_change', args=(ct.id,))
-        return mark_safe('<a href="%s">%s</a>' % (url, ct.title))
+        return mark_safe(f'<a href="%s">%s</a>' % (url, ct.title))
 
     @admin.action(description="Удаление задолжности")
     def debt_deletion(self, request, queryset):
